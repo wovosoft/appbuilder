@@ -85,6 +85,15 @@ class AppBuilderInstall extends Command
         File::copy(__DIR__ . "/../../stubs/package.json", base_path("package.json"));
         $this->info("package.json updated");
 
+        File::append(base_path("webpack.mix.js"),
+            "mix
+                    .sass('resources/css/admin.scss', 'public/css')
+                    .js('resources/js/admin.js', 'public/js')
+                    .version()
+                    .vue();"
+        );
+
+
         $composer = json_decode(File::get(base_path("composer.json")), true);
         $composer["autoload"]["files"] = [
             "app/Helpers/functions.php"
