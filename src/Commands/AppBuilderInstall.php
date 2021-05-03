@@ -69,6 +69,9 @@ class AppBuilderInstall extends Command
         File::copyDirectory(__DIR__ . "/../../stubs/database", base_path("database"));
         $this->info("Database Files copied successfully");
 
+        File::copyDirectory(__DIR__ . "/../../stubs/resources", resource_path("/"));
+        $this->info("Resources Files copied successfully");
+
         File::copy(__DIR__ . "/../../stubs/Providers/AuthServiceProvider.php", app_path("Providers/AuthServiceProvider.php"));
         $this->info("AuthServiceProvider.php updated");
 
