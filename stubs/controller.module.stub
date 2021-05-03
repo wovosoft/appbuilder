@@ -1,0 +1,76 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
+use App\Assets\Datatable;
+use Illuminate\Database\Eloquent\Builder;
+use App\Traits\ControllerTraits;
+
+class {{ class }} extends Controller
+{
+     protected string $model = {{ MODEL }}::class;
+     use ControllerTraits;
+
+     public static function routes()
+     {
+        Route::prefix('/{{ ROUTE_PREFIX }}')
+            ->name('{{ GROUP_NAME }}.')
+            ->group(function () {
+                Route::post('/', [self::class, 'index'])->name('list');
+                Route::post('/store', [self::class, 'store'])->name('store');
+                Route::post('/destroy/{id}', [self::class, 'destroy'])->name('destroy');
+            });
+    }
+
+    public function store(Request $request): JsonResponse
+    {
+        DB::beginTransaction();
+        try {
+            $item = {{ MODEL }}::query()->findOrNew($request->post('id'));
+            $item
+                ->forceFill([
+                    //FILL_ABLE_COLUMNS
+                ])
+                ->saveOrFail();
+
+            DB::commit();
+            return successResponse();
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            throw $exception;
+        }
+    }
+
+    public function index(Request $request): LengthAwarePaginator
+    {
+        return Datatable::render(
+            {{ MODEL }}::query()
+                ->select({{ SELECTED_COLUMNS }})
+                ->when($request->post('filter'), function (Builder $builder) use ($request) {
+                    $builder->where('id', '=', $request->post('filter'));
+                    {{ OTHER_QUERIES }}
+                })
+        );
+    }
+    /*
+    public function destroy($id): JsonResponse
+    {
+        DB::beginTransaction();
+        try {
+            $item = {{ MODEL }}::query()->findOrFail($id);
+            $item->delete();
+            DB::commit();
+            return successResponse();
+        } catch (\Throwable $exception) {
+            DB::rollBack();
+            throw $exception;
+        }
+    }
+    */
+}

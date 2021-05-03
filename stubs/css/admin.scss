@@ -1,0 +1,22 @@
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+
+.sidebar-mw-50 {
+    min-width: 50% !important;
+}
+
+.overflow-x-hidden {
+    overflow-x: hidden !important;
+}
+
+.w-extend-24 {
+    width: calc(100% + 24px) !important;
+}
+
+
+@media (max-width: 768px) {
+    .sidebar-mw-50 {
+        min-width: 100% !important;
+    }
+}

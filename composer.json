@@ -1,0 +1,55 @@
+{
+    "name": "wovosoft/appbuilder",
+    "description": "Laravel Application Builder",
+    "keywords": [
+        "wovosoft",
+        "appbuilder"
+    ],
+    "homepage": "https://github.com/wovosoft/appbuilder",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Narayan Adhikary",
+            "email": "wovosoft@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0",
+        "spatie/html-element": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wovosoft\\AppBuilder\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Wovosoft\\AppBuilder\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Wovosoft\\AppBuilder\\AppBuilderServiceProvider"
+            ],
+            "aliases": {
+                "AppBuilder": "Wovosoft\\AppBuilder\\AppBuilderFacade"
+            }
+        }
+    }
+}
