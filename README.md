@@ -1,24 +1,46 @@
-# Very short description of the package
+# Laravel Application Builder
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/wovosoft/appbuilder.svg?style=flat-square)](https://packagist.org/packages/wovosoft/appbuilder)
 [![Total Downloads](https://img.shields.io/packagist/dt/wovosoft/appbuilder.svg?style=flat-square)](https://packagist.org/packages/wovosoft/appbuilder)
 ![GitHub Actions](https://github.com/wovosoft/appbuilder/actions/workflows/main.yml/badge.svg)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+This laravel package is used to create basic scaffolding of a Laravel Application. 
+It installs required dependencies and configures everything out of the box.
 
 ## Installation
+The package uses default authentication provided by https://github.com/laravel/breeze
+So, first you need to follow the instructions of `Laravel Breeze`. Then, follow the next steps.
 
-You can install the package via composer:
+You just need this package during development, so
+it can be installed via composer with `--dev` flag:
 
-```bash
-composer require wovosoft/appbuilder
+```shell
+composer require wovosoft/appbuilder --dev
 ```
 
 ## Usage
-
-```php
-// Usage description here
+Run the following command. This will copy and configure all the required dependencies and configurations.
+```bash
+php artisan builder:install
 ```
+
+If Everything runs smoothly, configure database in `.env` file. Then run the following commands:
+```shell
+php artisan storage:link
+php artisan migrate --seed
+```
+The last command will seed default users and roles. 
+
+Browse the application. Use following user credentials to login:
+```shell
+Email: admin@gmail.com
+Password: admin12346789
+```
+
+## Dependencies
+
+- Vuejs
+- Bootstrap Vue
 
 ### Testing
 
